@@ -18,5 +18,5 @@ CREATE TABLE IF NOT EXISTS employe (
   admin_ligue BOOLEAN NOT NULL DEFAULT 0,
   id_ligue INT NULL,
   PRIMARY KEY (id_emp),
-    FOREIGN KEY (id_ligue)
+    FOREIGN KEY (id_ligue)REFERENCES LIGUE(ID_ligue)
 );

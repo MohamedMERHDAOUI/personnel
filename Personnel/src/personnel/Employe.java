@@ -15,15 +15,18 @@ public class Employe implements Serializable, Comparable<Employe>
 	private static final long serialVersionUID = 4795721718037994734L;
 	private String nom, prenom, password, mail;
 	private Ligue ligue;
+	private Localdate dateDepart, dateArrive;
 	private GestionPersonnel gestionPersonnel;
 	
-	Employe(GestionPersonnel gestionPersonnel, Ligue ligue, String nom, String prenom, String mail, String password)
+	Employe(GestionPersonnel gestionPersonnel, Ligue ligue, String nom, String prenom, String mail, String password, Localdate dateArrive, Localdate dateDepart)
 	{
 		this.gestionPersonnel = gestionPersonnel;
 		this.nom = nom;
 		this.prenom = prenom;
 		this.password = password;
 		this.mail = mail;
+		this.dateArrive = dateArrive;
+		this.dateDepart = dateDepart;
 		this.ligue = ligue;
 	}
 	
@@ -144,10 +147,45 @@ public class Employe implements Serializable, Comparable<Employe>
 		return ligue;
 	}
 
+
+	 public void setDateDepart(LocalDate dateDepart) throws DateImpossible
+	 {
+	 if (dateArrive != null && dateDepart != null && dateArrive.isAfter(dateDepart))
+	 throw new DateImpossible();
+
+	 this.dateDepart = dateDepart;// Met à jour la date de depart
+	 this.update("date_depart");// informe les changements 
+	 
+	 }
+	 
+	 public LocalDate getDateDepart()
+	 {
+	 return dateDepart;// retoune la date de depart
+	 }
+	 
+
+	 public void setDateArrive(LocalDate dateArrive) throws DateImpossible
+	 {
+	 if (dateArrive != null && dateDepart != null && dateDepart.isBefore(dateArrive))
+	 throw new DateImpossible();
+	 
+	 this.dateArrive = dateArrive;// Met à jour la date d'arriver
+	 this.update("date_arrive");// informe les changements 
+	 }
+	 
+	 public LocalDate getDateArrive()
+	 {
+	 return dateArrive;// retoune la date d'arriver
+	 }
+
+
+
 	/**
 	 * Supprime l'employé. Si celui-ci est un administrateur, le root
 	 * récupère les droits d'administration sur sa ligue.
 	 */
+
+
 	
 	public void remove()
 	{
@@ -181,4 +219,5 @@ public class Employe implements Serializable, Comparable<Employe>
 			res += ligue.toString();
 		return res + ")";
 	}
+	//lsdjksdkl
 }

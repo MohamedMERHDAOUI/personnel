@@ -146,5 +146,15 @@ public class LigueConsole
 	{
 		return new Option("Supprimer", "d", () -> {ligue.remove();});
 	}
+
+		private List<Employe> changerAdministrateur(final Ligue ligue)
+	{
+		List<Employe> liste = new List<>("Changer Administrateur",
+				() -> new ArrayList<>(ligue.getEmployes()),
+				(index, element) -> {    //definit le nouvel admin de la ligue 
+					ligue.setAdministrateur(element);
+				});
+				return liste;
+	}	
 	
 }

@@ -74,7 +74,70 @@ public class JDBC implements Passerelle
 		try 
 		{
 			PreparedStatement instruction;
-			instruction = connection.prepareStatement("insert into ligue (nom) values(?)", Statement.RETURN_GENERATED_KEYS);
+			instruction = connection.prepareStatement("INSERT INTO ligue (nom_ligue) VALUES(?)", Statement.RETURN_GENERATED_KEYS);
+			instruction.setString(1, ligue.getNom());		
+			instruction.executeUpdate();
+			ResultSet id = instruction.getGeneratedKeys();
+			id.next();
+			return id.getInt(1);
+		} 
+		catch (SQLException exception) 
+		{
+			exception.printStackTrace();
+			throw new SauvegardeImpossible(exception);
+		}		
+	}
+}
+
+	@Override
+	public int select(Ligue ligue) throws SauvegardeImpossible 
+	{
+		try 
+		{
+			PreparedStatement instruction;
+			instruction = connection.prepareStatement("SELECT * FROM ligue", Statement.RETURN_GENERATED_KEYS);
+			instruction.setString(1, ligue.getNom());		
+			instruction.executeUpdate();
+			ResultSet id = instruction.getGeneratedKeys();
+			id.next();
+			return id.getInt(1);
+		} 
+		catch (SQLException exception) 
+		{
+			exception.printStackTrace();
+			throw new SauvegardeImpossible(exception);
+		}		
+	}
+}
+
+	@Override
+	public int update(Ligue ligue) throws SauvegardeImpossible 
+	{
+		try 
+		{
+			PreparedStatement instruction;
+			instruction = connection.prepareStatement("UPDATE ligue SET nom_ligue = (?) WHERE id_ligue = (?)", Statement.RETURN_GENERATED_KEYS);
+			instruction.setString(1, ligue.getNom());		
+			instruction.executeUpdate();
+			ResultSet id = instruction.getGeneratedKeys();
+			id.next();
+			return id.getInt(1);
+		} 
+		catch (SQLException exception) 
+		{
+			exception.printStackTrace();
+			throw new SauvegardeImpossible(exception);
+		}		
+	}
+}
+
+	@Override
+	public int delete(Ligue ligue) throws SauvegardeImpossible 
+	{
+		try 
+		{
+			PreparedStatement instruction;
+			instruction = connection.prepareStatement("DELETE FROM ligue WHERE id_ligue = (?)", Statement.RETURN_GENERATED_KEYS);
 			instruction.setString(1, ligue.getNom());		
 			instruction.executeUpdate();
 			ResultSet id = instruction.getGeneratedKeys();

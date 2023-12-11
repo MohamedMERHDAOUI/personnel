@@ -151,3 +151,87 @@ public class JDBC implements Passerelle
 		}		
 	}
 }
+
+	@Override
+	public int insert(Employe employe) throws SauvegardeImpossible 
+	{
+		try 
+		{
+			PreparedStatement instruction;
+			instruction = connection.prepareStatement("INSERT INTO ligue (nom_emp,prenom_emp,mail_emp,password_emp,date_arrive,date_depart,admin_ligue,id_ligue) VALUES(?,?,?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
+			instruction.setString(1, ligue.getNom());		
+			instruction.executeUpdate();
+			ResultSet id = instruction.getGeneratedKeys();
+			id.next();
+			return id.getInt(1);
+		} 
+		catch (SQLException exception) 
+		{
+			exception.printStackTrace();
+			throw new SauvegardeImpossible(exception);
+		}		
+	}
+}
+
+	@Override
+	public int select(Employe employe) throws SauvegardeImpossible 
+	{
+		try 
+		{
+			PreparedStatement instruction;
+			instruction = connection.prepareStatement("SELECT * FROM employe", Statement.RETURN_GENERATED_KEYS);
+			instruction.setString(1, ligue.getNom());		
+			instruction.executeUpdate();
+			ResultSet id = instruction.getGeneratedKeys();
+			id.next();
+			return id.getInt(1);
+		} 
+		catch (SQLException exception) 
+		{
+			exception.printStackTrace();
+			throw new SauvegardeImpossible(exception);
+		}		
+	}
+}
+
+	@Override
+	public int update(Employe employe) throws SauvegardeImpossible 
+	{
+		try 
+		{
+			PreparedStatement instruction;
+			instruction = connection.prepareStatement("UPDATE employe SET nom_emp = (?) WHERE id_emp = (?)", Statement.RETURN_GENERATED_KEYS);
+			instruction.setString(1, ligue.getNom());		
+			instruction.executeUpdate();
+			ResultSet id = instruction.getGeneratedKeys();
+			id.next();
+			return id.getInt(1);
+		} 
+		catch (SQLException exception) 
+		{
+			exception.printStackTrace();
+			throw new SauvegardeImpossible(exception);
+		}		
+	}
+}
+
+	@Override
+	public int delete(Employe employe) throws SauvegardeImpossible 
+	{
+		try 
+		{
+			PreparedStatement instruction;
+			instruction = connection.prepareStatement("DELETE FROM employe WHERE id_emp = (?)", Statement.RETURN_GENERATED_KEYS);
+			instruction.setString(1, ligue.getNom());		
+			instruction.executeUpdate();
+			ResultSet id = instruction.getGeneratedKeys();
+			id.next();
+			return id.getInt(1);
+		} 
+		catch (SQLException exception) 
+		{
+			exception.printStackTrace();
+			throw new SauvegardeImpossible(exception);
+		}		
+	}
+}

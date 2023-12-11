@@ -9,19 +9,16 @@ public class PersonnelConsole
 	private GestionPersonnel gestionPersonnel;
 	LigueConsole ligueConsole;
 	EmployeConsole employeConsole;
-	
 	public PersonnelConsole(GestionPersonnel gestionPersonnel)
 	{
 		this.gestionPersonnel = gestionPersonnel;
 		this.employeConsole = new EmployeConsole();
 		this.ligueConsole = new LigueConsole(gestionPersonnel, employeConsole);
 	}
-	
 	public void start()
 	{
 		menuPrincipal().start();
 	}
-	
 	private Menu menuPrincipal()
 	{
 		Menu menu = new Menu("Gestion du personnel des ligues");
@@ -39,7 +36,6 @@ public class PersonnelConsole
 		menu.addBack("r");
 		return menu;
 	}
-	
 	private Option quitterEtEnregistrer()
 	{
 		return new Option("Quitter et enregistrer", "q", 
@@ -57,12 +53,10 @@ public class PersonnelConsole
 				}
 			);
 	}
-	
 	private Option quitterSansEnregistrer()
 	{
 		return new Option("Quitter sans enregistrer", "a", Action.QUIT);
 	}
-	
 	private boolean verifiePassword()
 	{
 		boolean ok = gestionPersonnel.getRoot().checkPassword(getString("password : "));
@@ -70,12 +64,12 @@ public class PersonnelConsole
 			System.out.println("Password incorrect.");
 		return ok;
 	}
-	
 	public static void main(String[] args)
 	{
-		PersonnelConsole personnelConsole = 
+		PersonnelConsole personnelConsole =
 				new PersonnelConsole(GestionPersonnel.getGestionPersonnel());
 		if (personnelConsole.verifiePassword())
 			personnelConsole.start();
 	}
 }
+

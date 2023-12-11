@@ -1,116 +1,134 @@
-package personnel;
+package commandLine;
 
-import java.io.Serializable;
-import java.util.Collections;
-import java.util.SortedSet;
-import java.util.TreeSet;
+import static commandLineMenus.rendering.examples.util.InOut.getString;
 
-/**
- * Gestion du personnel. Un seul objet de cette classe existe.
- * Il n'est pas possible d'instancier directement cette classe, 
- * la méthode {@link #getGestionPersonnel getGestionPersonnel} 
- * le fait automatiquement et retourne toujours le même objet.
- * Dans le cas où {@link #sauvegarder()} a été appelé lors 
- * d'une exécution précédente, c'est l'objet sauvegardé qui est
- * retourné.
- */
+import java.time.LocalDate;
 
-public class GestionPersonnel implements Serializable
+import commandLineMenus.ListOption;
+import commandLineMenus.Menu;
+import commandLineMenus.Option;
+import personnel.Employe;
+
+public class EmployeConsole
 {
-	private static final long serialVersionUID = -105283113987886425L;
-	private static GestionPersonnel gestionPersonnel = null;
-	private SortedSet<Ligue> ligues;
-	private Employe root = new Employe(this, null, "root", "", "", "toor");
-	public final static int SERIALIZATION = 1, JDBC = 2, 
-			TYPE_PASSERELLE = JDBC;  
-	private static Passerelle passerelle = TYPE_PASSERELLE == JDBC ? new jdbc.JDBC() : new serialisation.Serialization();	
-	
-	/**
-	 * Retourne l'unique instance de cette classe.
-	 * Crée cet objet s'il n'existe déjà.
-	 * @return l'unique objet de type {@link GestionPersonnel}.
-	 */
-	
-	public static GestionPersonnel getGestionPersonnel()
+	private Option afficher(final Employe employe)
 	{
-		if (gestionPersonnel == null)
-		{
-			gestionPersonnel = passerelle.getGestionPersonnel();
-			if (gestionPersonnel == null)
-				gestionPersonnel = new GestionPersonnel();
-		}
-		return gestionPersonnel;
+		return new Option("Afficher l'employé", "l", () -> {System.out.println(employe);});
 	}
 
-	public GestionPersonnel()
+	ListOption<Employe> editerEmploye()
 	{
-		if (gestionPersonnel != null)
-			throw new RuntimeException("Vous ne pouvez créer qu'une seuls instance de cet objet.");
-		ligues = new TreeSet<>();
-		gestionPersonnel = this;
-	}
-	
-	public void sauvegarder() throws SauvegardeImpossible
-	{
-		passerelle.sauvegarderGestionPersonnel(this);
-	}
-	
-	/**
-	 * Retourne la ligue dont administrateur est l'administrateur,
-	 * null s'il n'est pas un administrateur.
-	 * @param administrateur l'administrateur de la ligue recherchée.
-	 * @return la ligue dont administrateur est l'administrateur.
-	 */
-	
-	public Ligue getLigue(Employe administrateur)
-	{
-		if (administrateur.estAdmin(administrateur.getLigue()))
-			return administrateur.getLigue();
-		else
-			return null;
+		return (employe) -> editerEmploye(employe);
 	}
 
-	/**
-	 * Retourne toutes les ligues enregistrées.
-	 * @return toutes les ligues enregistrées.
-	 */
-	
-	public SortedSet<Ligue> getLigues()
+	Option editerEmploye(Employe employe)
 	{
-		return Collections.unmodifiableSortedSet(ligues);
+		Menu menu = new Menu("Gérer le compte " + employe.getNom(), "c");
+		menu.add(afficher(employe));
+		menu.add(changerNom(employe));
+		menu.add(changerPrenom(employe));
+		menu.add(changerMail(employe));
+		menu.add(changerPassword(employe));
+		menu.add(changerdatedarrive(employe));
+		menu.add(changerdatedepart(employe));
+		menu.addBack("q");
+		return menu;
 	}
 
-	public Ligue addLigue(String nom) throws SauvegardeImpossible
+	private Option changerNom(final Employe employe)
 	{
-		Ligue ligue = new Ligue(this, nom); 
-		ligues.add(ligue);
-		return ligue;
-	}
-	
-	public Ligue addLigue(int id, String nom)
-	{
-		Ligue ligue = new Ligue(this, id, nom);
-		ligues.add(ligue);
-		return ligue;
+		return new Option("Changer le nom", "n", () -> {employe.setNom(getString("Nouveau nom : "));});
 	}
 
-	void remove(Ligue ligue)
+	private Option changerPrenom(final Employe employe)
 	{
-		ligues.remove(ligue);
-	}
-	
-	int insert(Ligue ligue) throws SauvegardeImpossible
-	{
-		return passerelle.insert(ligue);
+		return new Option("Changer le prénom", "p", () -> {employe.setPrenom(getString("Nouveau prénom : "));});
 	}
 
-	/**
-	 * Retourne le root (super-utilisateur).
-	 * @return le root.
-	 */
-	
-	public Employe getRoot()
+	private Option changerMail(final Employe employe)
 	{
-		return root;
+		return new Option("Changer le mail", "e", () -> {employe.setMail(getString("Nouveau mail : "));});
+	}
+
+	private Option changerPassword(final Employe employe)
+	{
+		return new Option("Changer le password", "x", () -> {employe.setPassword(getString("Nouveau password : "));});
+	}
+
+	private Option changerdatedarrive(final Employe employe)
+	{
+		return new Option("Changer la date d'arrivée", "a", () -> {employe.setdatedarrive(LocalDate.parse("Nouveau date d'arriée : "));});
+	}
+
+	private Option changerdatedepart(final Employe employe)
+	{
+		return new Option("Changer la date de départ", "d", () -> {employe.setdatedepart(LocalDate.parse("Nouveau date de départ : "));});
+	}
+}
+package commandLine;
+
+import static commandLineMenus.rendering.examples.util.InOut.getString;
+
+import java.time.LocalDate;
+
+import commandLineMenus.ListOption;
+import commandLineMenus.Menu;
+import commandLineMenus.Option;
+import personnel.Employe;
+
+public class EmployeConsole
+{
+	private Option afficher(final Employe employe)
+	{
+		return new Option("Afficher l'employé", "l", () -> {System.out.println(employe);});
+	}
+
+	ListOption<Employe> editerEmploye()
+	{
+		return (employe) -> editerEmploye(employe);
+	}
+
+	Option editerEmploye(Employe employe)
+	{
+		Menu menu = new Menu("Gérer le compte " + employe.getNom(), "c");
+		menu.add(afficher(employe));
+		menu.add(changerNom(employe));
+		menu.add(changerPrenom(employe));
+		menu.add(changerMail(employe));
+		menu.add(changerPassword(employe));
+		menu.add(changerdatedarrive(employe));
+		menu.add(changerdatedepart(employe));
+		menu.addBack("q");
+		return menu;
+	}
+
+	private Option changerNom(final Employe employe)
+	{
+		return new Option("Changer le nom", "n", () -> {employe.setNom(getString("Nouveau nom : "));});
+	}
+
+	private Option changerPrenom(final Employe employe)
+	{
+		return new Option("Changer le prénom", "p", () -> {employe.setPrenom(getString("Nouveau prénom : "));});
+	}
+
+	private Option changerMail(final Employe employe)
+	{
+		return new Option("Changer le mail", "e", () -> {employe.setMail(getString("Nouveau mail : "));});
+	}
+
+	private Option changerPassword(final Employe employe)
+	{
+		return new Option("Changer le password", "x", () -> {employe.setPassword(getString("Nouveau password : "));});
+	}
+
+	private Option changerdatedarrive(final Employe employe)
+	{
+		return new Option("Changer la date d'arrivée", "a", () -> {employe.setdatedarrive(LocalDate.parse("Nouveau date d'arriée : "));});
+	}
+
+	private Option changerdatedepart(final Employe employe)
+	{
+		return new Option("Changer la date de départ", "d", () -> {employe.setdatedepart(LocalDate.parse("Nouveau date de départ : "));});
 	}
 }

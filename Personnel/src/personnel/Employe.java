@@ -157,7 +157,7 @@ public class Employe implements Serializable, Comparable<Employe>
 		return id_emp;
 	}
 
-	public void setAdministrateur(int id)
+	public void setId(int id)
 	{
 		this.id_emp = id;
 	}

@@ -62,6 +62,16 @@ public class Ligue implements Serializable, Comparable<Ligue>
 		this.nom = nom;
 	}
 
+	public Int getId()
+	{
+		return id_ligue;
+	}
+
+	public void setId(int id)
+	{
+		this.id_ligue = id;
+	}
+
 	/**
 	 * Retourne l'administrateur de la ligue.
 	 * @return l'administrateur de la ligue.
@@ -144,12 +154,4 @@ public class Ligue implements Serializable, Comparable<Ligue>
 	}
 }
 
-	public Int getId()
-	{
-		return id_ligue;
-	}
-
-	public void setAdministrateur(int id)
-	{
-		this.id_ligue = id;
-	}
+	

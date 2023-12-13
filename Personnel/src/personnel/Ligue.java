@@ -143,3 +143,13 @@ public class Ligue implements Serializable, Comparable<Ligue>
 		return nom;
 	}
 }
+
+	public Employe getId()
+	{
+		return id_ligue;
+	}
+
+	public void Employe setAdministrateur(int id)
+	{
+		this.id_ligue = id;
+	}

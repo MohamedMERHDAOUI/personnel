@@ -152,6 +152,17 @@ public class Employe implements Serializable, Comparable<Employe>
 		return ligue;
 	}
 
+	public Int getId()
+	{
+		return id_ligue;
+	}
+
+	public void setAdministrateur(int id)
+	{
+		this.id_ligue = id;
+	}
+
+
 	/**
 	 * Supprime l'employé. Si celui-ci est un administrateur, le root
 	 * récupère les droits d'administration sur sa ligue.

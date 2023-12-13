@@ -154,12 +154,12 @@ public class Employe implements Serializable, Comparable<Employe>
 
 	public Int getId()
 	{
-		return id_ligue;
+		return id_emp;
 	}
 
 	public void setAdministrateur(int id)
 	{
-		this.id_ligue = id;
+		this.id_emp = id;
 	}
 
 

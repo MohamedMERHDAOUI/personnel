@@ -95,8 +95,7 @@ public class JDBC implements Passerelle
 		try 
 		{
 			PreparedStatement instruction;
-			instruction = connection.prepareStatement("SELECT * FROM ligue", Statement.RETURN_GENERATED_KEYS);
-			instruction.setString(1, ligue.getNom());		
+			instruction = connection.prepareStatement("SELECT * FROM ligue", Statement.RETURN_GENERATED_KEYS);		
 			instruction.executeUpdate();
 			ResultSet id = instruction.getGeneratedKeys();
 			id.next();
@@ -116,8 +115,9 @@ public class JDBC implements Passerelle
 		try 
 		{
 			PreparedStatement instruction;
-			instruction = connection.prepareStatement("UPDATE ligue SET nom_ligue = (?) WHERE id_ligue = (?)", Statement.RETURN_GENERATED_KEYS);
-			instruction.setString(1, ligue.getNom());		
+			instruction = connection.prepareStatement("UPDATE ligue SET nom_ligue = ? WHERE id_ligue = ?", Statement.RETURN_GENERATED_KEYS);
+			instruction.setString(1, ligue.getNom());
+			instruction.setInt(2, ligue.getId());
 			instruction.executeUpdate();
 			ResultSet id = instruction.getGeneratedKeys();
 			id.next();
@@ -137,8 +137,8 @@ public class JDBC implements Passerelle
 		try 
 		{
 			PreparedStatement instruction;
-			instruction = connection.prepareStatement("DELETE FROM ligue WHERE id_ligue = (?)", Statement.RETURN_GENERATED_KEYS);
-			instruction.setString(1, ligue.getNom());		
+			instruction = connection.prepareStatement("DELETE FROM ligue WHERE id_ligue = ?", Statement.RETURN_GENERATED_KEYS);
+			instruction.setString(1, ligue.getId());		
 			instruction.executeUpdate();
 			ResultSet id = instruction.getGeneratedKeys();
 			id.next();
@@ -159,14 +159,14 @@ public class JDBC implements Passerelle
 		{
 			PreparedStatement instruction;
 			instruction = connection.prepareStatement("INSERT INTO ligue (nom_emp,prenom_emp,mail_emp,password_emp,date_arrive,date_depart,admin_ligue,id_ligue) VALUES(?,?,?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
-			instruction.setString(1, employe.getnom_emp());	
-			instruction.setString(2, employe.getprenom_emp());
-			instruction.setString(3, employe.getmail_emp());
-			instruction.setString(4, employe.getpassword_emp());
-			instruction.setString(5, employe.getdate_arrive());
-			instruction.setString(6, employe.getdate_depart());
-			instruction.setString(7, employe.getadmin_ligue());
-			instruction.setString(8, employe.getid_ligue());
+			instruction.setString(1, employe.getNom());	
+			instruction.setString(2, employe.getPrenom());
+			instruction.setString(3, employe.getMail());
+			instruction.setString(4, employe.getPassword());
+			instruction.setString(5, employe.getdatedarrive());
+			instruction.setString(6, employe.getdatedepart());
+			instruction.setString(7, employe.getAdministrateur());
+			instruction.setInt(8, ligue.getId());
 			instruction.executeUpdate();
 			ResultSet id = instruction.getGeneratedKeys();
 			id.next();
@@ -186,8 +186,7 @@ public class JDBC implements Passerelle
 		try 
 		{
 			PreparedStatement instruction;
-			instruction = connection.prepareStatement("SELECT * FROM employe", Statement.RETURN_GENERATED_KEYS);
-			instruction.setString(1, ligue.getNom());		
+			instruction = connection.prepareStatement("SELECT * FROM employe", Statement.RETURN_GENERATED_KEYS);		
 			instruction.executeUpdate();
 			ResultSet id = instruction.getGeneratedKeys();
 			id.next();
@@ -207,8 +206,16 @@ public class JDBC implements Passerelle
 		try 
 		{
 			PreparedStatement instruction;
-			instruction = connection.prepareStatement("UPDATE employe SET nom_emp = (?) WHERE id_emp = (?)", Statement.RETURN_GENERATED_KEYS);
-			instruction.setString(1, ligue.getNom());		
+			instruction = connection.prepareStatement("UPDATE employe SET nom_emp = ?,prenom_emp = ?,mail_emp = ?,password_emp = ?,date_arrive = ?,date_depart = ?,admin_ligue = ?,id_ligue = ?, WHERE id_emp = ?", Statement.RETURN_GENERATED_KEYS);
+			instruction.setString(1, employe.getNom());
+			instruction.setString(2, employe.getPrenom());
+			instruction.setString(3, employe.getMail());
+			instruction.setString(4, employe.getPassword());
+			instruction.setString(5, employe.getdatedarrive());
+			instruction.setString(6, employe.getdatedepart());
+			instruction.setString(7, employe.getAdministrateur());
+			instruction.setString(8, ligue.getId());
+			instruction.setString(9, employe.getId());
 			instruction.executeUpdate();
 			ResultSet id = instruction.getGeneratedKeys();
 			id.next();
@@ -228,8 +235,8 @@ public class JDBC implements Passerelle
 		try 
 		{
 			PreparedStatement instruction;
-			instruction = connection.prepareStatement("DELETE FROM employe WHERE id_emp = (?)", Statement.RETURN_GENERATED_KEYS);
-			instruction.setString(1, ligue.getNom());		
+			instruction = connection.prepareStatement("DELETE FROM employe WHERE id_emp = ?", Statement.RETURN_GENERATED_KEYS);
+			instruction.setString(1, employe.getId());		
 			instruction.executeUpdate();
 			ResultSet id = instruction.getGeneratedKeys();
 			id.next();

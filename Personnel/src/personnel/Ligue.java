@@ -144,12 +144,12 @@ public class Ligue implements Serializable, Comparable<Ligue>
 	}
 }
 
-	public Employe getId()
+	public int getId()
 	{
 		return id_ligue;
 	}
 
-	public void Employe setAdministrateur(int id)
+	public void setAdministrateur(int id)
 	{
 		this.id_ligue = id;
 	}

@@ -18,6 +18,16 @@ public class Employe implements Serializable, Comparable<Employe>
 	private LocalDate datedarrive = LocalDate.now();
 	private LocalDate datedepart = LocalDate.now();
 	private Ligue ligue;
+	private Option changerdatedarrive(final Employe employe)
+return new Option("Changer la date d'arrivée", "a",
+-> {employe.setdatedarri
+(LocalDate. parse (getString ("Nouveau date d'arriée : ")));));
+}
+{
+private Option changerdatedepart (final Employe employe)
+return new Option("Changer la date de départ", "d", () -> {employe.setdatedepart(LocalDate.parse(getString("Nouveau date de départ : ")));}) ;
+private Option afficherdates (final Employe employe)
+return new Option("Afficher les dates", "f", () -> (System.out-printIn("Date d'arrivé : " + employe-getdatedarrive() + " date de départ "+ employe-getdatedepart ()) ;));
 	private GestionPersonnel gestionPersonnel;
 	Employe(GestionPersonnel gestionPersonnel, Ligue ligue, String nom, String prenom, String mail, String password)
 	{
@@ -28,6 +38,7 @@ public class Employe implements Serializable, Comparable<Employe>
 		this.mail = mail;
 		this.ligue = ligue;
 	}
+}
 	/**
 	 * Retourne vrai ssi l'employé est administrateur de la ligue 
 	 * passée en paramètre.

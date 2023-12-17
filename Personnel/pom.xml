@@ -3,6 +3,51 @@
   <groupId>Personnel</groupId>
   <artifactId>Personnel</artifactId>
   <version>2.0</version>
+
+  <properties>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
+  </properties>
+
+  <dependencies>
+    <dependency>
+      <groupId>mysql</groupId>
+      <artifactId>mysql-connector-java</artifactId>
+      <version>8.0.16</version>
+    </dependency>
+    <dependency>
+      <groupId>CommandLineMenus</groupId>
+      <artifactId>CommandLineMenus</artifactId>
+      <version>2.0</version>
+    </dependency>
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-api</artifactId>
+      <version>5.8.1</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.mockito</groupId>
+      <artifactId>mockito-core</artifactId>
+      <version>3.12.4</version>
+      <scope>test</scope>
+    </dependency>
+    <!-- Ajoute ici d'autres dépendances nécessaires pour tes classes de test -->
+  </dependencies>
+
+  <repositories>
+    <repository>
+      <id>apache</id>
+      <name>apache</name>
+      <url>https://repo.maven.apache.org/maven2</url>
+    </repository>
+    <repository>
+      <id>mereen</id>
+      <name>mereen</name>
+      <url>https://maven.alexandre-mesle.com/maven</url>
+    </repository>
+  </repositories>
+
   <build>
     <resources>
       <resource>
@@ -14,37 +59,17 @@
     </resources>
     <plugins>
       <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
         <version>3.8.1</version>
         <configuration>
+          <includes>
+            <include>**/test*.java</include>
+          </includes>
           <source>1.8</source>
           <target>1.8</target>
         </configuration>
       </plugin>
     </plugins>
   </build>
-  <dependencies>
-  	<dependency>
-  		<groupId>mysql</groupId>
-  		<artifactId>mysql-connector-java</artifactId>
-  		<version>8.0.16</version>
-  	</dependency>
-	<dependency>
-       <groupId>CommandLineMenus</groupId>
-       <artifactId>CommandLineMenus</artifactId>
-       <version>2.0</version>
-     </dependency>
-  </dependencies>
-  <repositories>
-    <repository>
-       <id>apache</id>
-       <name>apache</name>
-       <url>https://repo.maven.apache.org/maven2</url>
-    </repository>
-    <repository>
-       <id>mereen</id>
-       <name>mereen</name>
-       <url>https://maven.alexandre-mesle.com/maven</url>
-    </repository>
-  </repositories>
-  </project>
+</project>

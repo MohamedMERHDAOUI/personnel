@@ -87,7 +87,7 @@ public class JDBC implements Passerelle
 			throw new SauvegardeImpossible(exception);
 		}		
 	}
-}
+
 
 	@Override
 	public int select(Ligue ligue) throws SauvegardeImpossible 
@@ -107,7 +107,7 @@ public class JDBC implements Passerelle
 			throw new SauvegardeImpossible(exception);
 		}		
 	}
-}
+
 
 	@Override
 	public int update(Ligue ligue) throws SauvegardeImpossible 
@@ -129,7 +129,7 @@ public class JDBC implements Passerelle
 			throw new SauvegardeImpossible(exception);
 		}		
 	}
-}
+
 
 	@Override
 	public int delete(Ligue ligue) throws SauvegardeImpossible 
@@ -150,7 +150,7 @@ public class JDBC implements Passerelle
 			throw new SauvegardeImpossible(exception);
 		}		
 	}
-}
+
 
 	@Override
 	public int insert(Employe employe) throws SauvegardeImpossible 
@@ -178,7 +178,7 @@ public class JDBC implements Passerelle
 			throw new SauvegardeImpossible(exception);
 		}		
 	}
-}
+
 
 	@Override
 	public int select(Employe employe) throws SauvegardeImpossible 
@@ -198,7 +198,7 @@ public class JDBC implements Passerelle
 			throw new SauvegardeImpossible(exception);
 		}		
 	}
-}
+
 
 	@Override
 	public int update(Employe employe) throws SauvegardeImpossible 
@@ -227,7 +227,7 @@ public class JDBC implements Passerelle
 			throw new SauvegardeImpossible(exception);
 		}		
 	}
-}
+
 
 	@Override
 	public int delete(Employe employe) throws SauvegardeImpossible 

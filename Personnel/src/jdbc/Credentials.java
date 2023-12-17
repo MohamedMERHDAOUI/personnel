@@ -1,13 +1,13 @@
 package jdbc;
 
-public class CredentialsExample 
+public class Credentials
 {
 	private static String driver = "mysql";
 	private static String driverClassName = "com.mysql.cj.jdbc.Driver";
 	private static String host = "localhost";
 	private static String port = "3306";
 	private static String database = "m2l";
-	private static String user = "user";
+	private static String user = "root";
 	private static String password = "root";
 	
 	static String getUrl() 

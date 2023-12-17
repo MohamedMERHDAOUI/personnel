@@ -1,6 +1,11 @@
-CREATE DATABASE IF NOT EXISTS  M2L;
+CREATE DATABASE IF NOT EXISTS  m2l;
 
-USE M2L;
+USE m2l;
+
+CREATE TABLE IF NOT EXISTS superadmin (
+    superadmin_id INT AUTO_INCREMENT PRIMARY KEY,
+    designation VARCHAR(50) NOT NULL
+);
 
 CREATE TABLE IF NOT EXISTS ligue (
   id_ligue INT AUTO_INCREMENT,
@@ -15,8 +20,9 @@ CREATE TABLE IF NOT EXISTS employe (
   password_emp VARCHAR(255) NOT NULL,
   date_arrive DATE,
   date_depart DATE,
-  admin_ligue BOOLEAN NOT NULL DEFAULT 0,
+  superadmin_id INT,
   id_ligue INT NULL,
   PRIMARY KEY (id_emp),
-    FOREIGN KEY (id_ligue)REFERENCES LIGUE(ID_ligue)
+    FOREIGN KEY (id_ligue)REFERENCES ligue(id_ligue),
+     FOREIGN KEY (superadmin_id)REFERENCES superadmin(superadmin_id)
 );
